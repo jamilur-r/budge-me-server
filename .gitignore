@@ -7,3 +7,5 @@ drizzle/
 .env
 .env.local
 drizzle.config.json.biome.cache/
+
+firebase.json
