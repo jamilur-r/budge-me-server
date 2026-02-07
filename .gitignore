@@ -10,3 +10,4 @@ drizzle.config.json.biome.cache/
 
 firebase.json
 .env*
+.nitro
