@@ -12,21 +12,14 @@ import { CarouselTable } from "server/utils/schema"
 async function seedCarousel() {
 	console.log("🎠 Seeding carousel data...\n")
 
-	const dbHost = process.env.DB_HOST || "localhost"
-	const dbPort = parseInt(process.env.DB_PORT || "5432")
-	const dbUser = process.env.DB_USER || ""
-	const dbPassword = process.env.DB_PASSWORD || ""
-	const dbName = process.env.DB_NAME || ""
+	const databaseUrl = process.env.DATABASE_URL
+	if (!databaseUrl) {
+		throw new Error("DATABASE_URL is not set in .env")
+	}
 
 	try {
 		// Create connection
-		const client = postgres({
-			host: dbHost,
-			port: dbPort,
-			user: dbUser,
-			password: dbPassword,
-			database: dbName,
-		})
+		const client = postgres(databaseUrl)
 
 		const db = drizzle(client)
 
@@ -75,7 +68,7 @@ async function seedCarousel() {
 			console.log(`✓ Added: ${slide.title}`)
 		}
 
-		console.log("\n" + "=".repeat(50))
+		console.log(`\n${"=".repeat(50)}`)
 		console.log("✅ Carousel seed completed successfully!")
 		console.log("=".repeat(50))
 
